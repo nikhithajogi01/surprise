@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* invisible tap zones */
+.tap-zone {
+  position: absolute;
+  inset: 0;
+}
+
+/* center face tap zone */
+.face-zone {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  left: 30%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide1">
+  <video autoplay muted playsinline>
+    <source src="slide1.mp4" type="video/mp4">
+  </video>
+  <div class="tap-zone" onclick="goToSlide(2)"></div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide2">
+  <video id="video2" autoplay muted playsinline>
+    <source src="slide2.mp4" type="video/mp4">
+  </video>
+  <div class="face-zone" id="face2" style="display:none;" onclick="goToSlide(3)"></div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide3">
+  <video id="video3" autoplay muted playsinline>
+    <source src="slide3.mp4" type="video/mp4">
+  </video>
+  <div class="face-zone" id="face3" style="display:none;" onclick="goToSlide(4)"></div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="slide4">
+  <video autoplay muted playsinline loop>
+    <source src="slide4.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+function goToSlide(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide' + n).classList.add('active');
+}
+
+/* Slide 2 timing */
+const v2 = document.getElementById('video2');
+v2.addEventListener('timeupdate', () => {
+  if (v2.currentTime >= 2.2) {
+    document.getElementById('face2').style.display = 'block';
+  }
+});
+
+/* Slide 3 timing */
+const v3 = document.getElementById('video3');
+v3.addEventListener('timeupdate', () => {
+  if (v3.currentTime >= 2.6) {
+    document.getElementById('face3').style.display = 'block';
+  }
+});
+</script>
+
+</body>
+</html>
